@@ -1,3 +1,77 @@
+######################## 보안 그룹 ########################
+# EKS 클러스터 보안 그룹
+resource "aws_security_group" "eks_cluster_sg" {
+  name        = "eks-cluster-sg"
+  description = "Security group for EKS Cluster"
+  vpc_id      = aws_vpc.main.id
+
+  # EKS 클러스터 -> 노드로의 통신 허용 (TCP 443)
+  ingress {
+    description = "Allow worker node communication"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "eks-cluster-sg"
+  }
+}
+
+# EKS 노드 그룹 보안 그룹
+resource "aws_security_group" "eks_node_sg" {
+  name        = "eks-node-sg"
+  description = "Security group for EKS Worker Nodes"
+  vpc_id      = aws_vpc.main.id
+
+  # 노드 -> 클러스터로의 통신 허용 (TCP 443)
+  ingress {
+    description = "Allow cluster communication"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  # 외부에서의 SSH 접근 허용 (TCP 22)
+  ingress {
+    description = "Allow SSH access from outside"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # EKS 노드 간 통신 허용
+  ingress {
+    description = "Allow node-to-node communication"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "eks-node-sg"
+  }
+}
+
+######################## eks 클러스터 ########################
 # eks 클러스터 역할 (IAM Role)
 resource "aws_iam_role" "eks_cluster_role" {
   name = "eks-cluster-role"
@@ -28,6 +102,7 @@ resource "aws_eks_cluster" "main" {
 
   vpc_config {
     subnet_ids = aws_subnet.private[*].id
+    security_group_ids = [aws_security_group.eks_cluster_sg.id]
   }
 
   tags = {
@@ -39,6 +114,7 @@ resource "aws_eks_cluster" "main" {
   ]
 }
 
+######################## 노드 그룹 ########################
 # eks 노드 그룹 역할 (IAM Role)
 resource "aws_iam_role" "eks_node_role" {
   name = "eks-node-role"
@@ -82,6 +158,12 @@ resource "aws_eks_node_group" "node_group" {
   }
 
   instance_types = [var.instance_type]
+
+    # 노드 그룹에 보안 그룹 추가
+  remote_access {
+    ec2_ssh_key          = "your-ssh-key"
+    source_security_group_ids = [aws_security_group.eks_node_sg.id]
+  }
 
   tags = {
     Name = "jh-eks-node-group"
