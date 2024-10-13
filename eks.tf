@@ -26,35 +26,8 @@ resource "aws_security_group" "eks_cluster_sg" {
   }
 }
 
-# resource "aws_security_group" "eks_cluster_sg" {
-#   name        = "eks-cluster-sg"
-#   description = "Security group for EKS Cluster"
-#   vpc_id      = aws_vpc.main.id
 
-#   # 인바운드 규칙: 모든 트래픽 허용
-#   ingress {
-#     description = "Allow all inbound traffic"
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   # 아웃바운드 규칙: 모든 트래픽 허용
-#   egress {
-#     description = "Allow all outbound traffic"
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   tags = {
-#     Name = "eks-cluster-sg"
-#   }
-# }
-
-# # # EKS 노드 그룹 보안 그룹
+# EKS 노드 그룹 보안 그룹
 resource "aws_security_group" "eks_node_sg" {
   name        = "eks-node-sg"
   description = "Security group for EKS Worker Nodes"
@@ -81,7 +54,7 @@ resource "aws_security_group" "eks_node_sg" {
   # EKS 노드 간 통신 허용
   ingress {
     description = "Allow node-to-node communication"
-    from_port   = 0
+    from_port   = 1024
     to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.main.cidr_block]
@@ -98,36 +71,6 @@ resource "aws_security_group" "eks_node_sg" {
     Name = "eks-node-sg"
   }
 }
-
-# EKS 노드 그룹 보안 그룹
-# resource "aws_security_group" "eks_node_sg" {
-#   name        = "eks-node-sg"
-#   description = "Security group for EKS Worker Nodes"
-#   vpc_id      = aws_vpc.main.id
-
-#   # 인바운드 규칙: 모든 트래픽 허용
-#   ingress {
-#     description = "Allow all inbound traffic"
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   # 아웃바운드 규칙: 모든 트래픽 허용
-#   egress {
-#     description = "Allow all outbound traffic"
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   tags = {
-#     Name = "eks-node-sg"
-#   }
-# }
-
 
 ######################## eks 클러스터 ########################
 # eks 클러스터 역할 (IAM Role)
