@@ -1,8 +1,8 @@
 # vcp = 10.0.0.0/20
-# public-subnet-a = 10.0.0.0/23
-# public-subnet-c = 10.0.16.0/23
-# private-subnet-a = 10.0.32.0/23
-# private-subnet-c = 10.0.48.0/23
+# public-subnet-a = 10.0.0.0/20
+# public-subnet-c = 10.0.16.0/20
+# private-subnet-a = 10.0.32.0/20
+# private-subnet-c = 10.0.48.0/20
 
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
@@ -80,14 +80,3 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private.id
 }
-
-
-# ################### security group #####################
-# ######### DB 보안그룹 ##########
-# resource "aws_security_group" "rds" {
-#   name        = "jh-sg-rds"
-#   description = "Security group for rds"
-#   vpc_id      = aws_vpc.main.id
-
-
-# }
