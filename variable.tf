@@ -20,3 +20,7 @@ variable "private_subnet_cidrs" {
 variable "instance_type" {
   default = "t2.medium"
 }
+
+variable "db_passwd" {
+  type = string
+}
