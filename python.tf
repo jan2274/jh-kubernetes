@@ -28,7 +28,7 @@ resource "kubernetes_deployment" "python_app" {
           name  = "python-app-container"
           image = "python:3.9"
           
-          ports {
+          port {
             container_port = 8080
           }
 
