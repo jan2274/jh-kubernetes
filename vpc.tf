@@ -21,6 +21,8 @@ resource "aws_subnet" "public" {
   cidr_block        = var.public_subnet_cidrs[count.index]
   availability_zone = var.az[count.index]
 
+  map_public_ip_on_launch = true
+  
   tags = {
     Name = "jh-subnet-public-${count.index + 1}"
   }
