@@ -161,6 +161,7 @@ resource "aws_eks_node_group" "node_group" {
 
     # 노드 그룹에 보안 그룹 추가
   remote_access {
+    ec2_ssh_key          = "jh-key-nodegroup"
     source_security_group_ids = [aws_security_group.eks_node_sg.id]
   }
 
