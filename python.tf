@@ -1,3 +1,22 @@
+resource "kubernetes_service" "mysql" {
+  metadata {
+    name = "python-app-service"
+  }
+
+  spec {
+    selector = {
+      app = "python-app"
+    }
+
+    port {
+      port        = 8080
+      target_port = 8080
+    }
+
+    type = "ClusterIP"
+  }
+}
+
 resource "kubernetes_deployment" "python_app" {
   metadata {
     name      = "python-app"

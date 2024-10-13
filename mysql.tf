@@ -1,7 +1,7 @@
 ############## 서비스 ###############
 resource "kubernetes_service" "mysql" {
   metadata {
-    name = "mysql"
+    name = "mysql-service"
   }
 
   spec {
