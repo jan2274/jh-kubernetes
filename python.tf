@@ -1,4 +1,4 @@
-resource "kubernetes_service" "mysql" {
+resource "kubernetes_service" "python_app" {
   metadata {
     name = "python-app-service"
   }
