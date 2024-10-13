@@ -19,7 +19,7 @@ resource "kubernetes_service" "mysql" {
 }
 
 ############## 디플로이먼트 ###############
-resource "kubernetes_deployment" "mysql" {
+resource "kubernetes_stateful_set" "mysql" {
   metadata {
     name = "mysql"
     labels = {
@@ -28,7 +28,8 @@ resource "kubernetes_deployment" "mysql" {
   }
 
   spec {
-    replicas = 3
+    service_name = "mysql"
+    replicas     = 1
 
     selector {
       match_labels = {
@@ -47,10 +48,11 @@ resource "kubernetes_deployment" "mysql" {
         container {
           name  = "mysql"
           image = "mysql:5.7"
-          
+
           env {
             name  = "MYSQL_ROOT_PASSWORD"
-            value = var.db_passwd  # MySQL root 비밀번호 설정
+            value = var.db_passwd
+            # terraform cloud에 sensitive로 값을 저장하여 외부 노출 방지
           }
 
           port {
