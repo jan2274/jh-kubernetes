@@ -1,7 +1,7 @@
 ############## 서비스 ###############
 resource "kubernetes_service" "mysql" {
   metadata {
-    name = "mysql-service"
+    name = "mysql"
   }
 
   spec {
@@ -50,7 +50,7 @@ resource "kubernetes_deployment" "mysql" {
           
           env {
             name  = "MYSQL_ROOT_PASSWORD"
-            value = "your_password"  # MySQL root 비밀번호 설정
+            value = var.db_passwd  # MySQL root 비밀번호 설정
           }
 
           port {
