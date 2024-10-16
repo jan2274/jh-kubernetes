@@ -54,7 +54,7 @@ resource "aws_security_group" "eks_node_sg" {
   # EKS 노드 간 통신 허용
   ingress {
     description = "Allow node-to-node communication"
-    from_port   = 1024
+    from_port   = 0
     to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.main.cidr_block]
