@@ -20,7 +20,7 @@ provider "aws" {
 # Kubernetes provider 설정
 provider "kubernetes" {
   host                   = data.terraform_remote_state.eks.outputs.eks_cluster_endpoint
-  cluster_ca_certificate = base64decode(var.cluster_ca_certificate)
+  cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.eks_cluster_ca) # base64decode(var.cluster_ca_certificate) 
   token                  = data.aws_eks_cluster_auth.main.token
 }
 
