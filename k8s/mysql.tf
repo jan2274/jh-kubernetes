@@ -18,7 +18,7 @@ resource "kubernetes_persistent_volume" "mysql_pv" {
     capacity = {
       storage = "10Gi"
     }
-    access_modes = ["ReadWriteOnce"]  # EBS는 ReadWriteOnce가 일반적
+    access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
       aws_elastic_block_store {
         volume_id = aws_ebs_volume.mysql_ebs.id  # EBS 볼륨의 ID 참조
