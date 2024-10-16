@@ -35,6 +35,17 @@ resource "kubernetes_deployment" "mysql" {
           port {
             container_port = 3306  # MySQL 포트
           }
+
+          resources {
+            limits = {
+              cpu    = "500m"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "256Mi"
+            }
+          }          
         }
       }
     }
