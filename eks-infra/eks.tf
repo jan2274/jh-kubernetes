@@ -155,7 +155,7 @@ resource "aws_iam_role" "eks_node_role" {
 #   role       = aws_iam_role.eks_node_role.name
 # }
 resource "aws_iam_role_policy_attachment" "AdministratorAccess2" {
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess2"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.eks_node_role.name
 }
 
@@ -165,7 +165,6 @@ resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "jh-eks-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
-  # subnet_ids      = aws_subnet.private[*].id
   subnet_ids      = aws_subnet.public[*].id
 
   scaling_config {
