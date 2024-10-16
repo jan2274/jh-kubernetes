@@ -1,13 +1,7 @@
-# provider "kubernetes" {
-#   host                   = aws_eks_cluster.main.endpoint
-#   cluster_ca_certificate = var.cluster_ca_certificate
-#   token                  = data.aws_eks_cluster_auth.main.token
-# }
-
-# data "aws_eks_cluster_auth" "main" {
-#   name = aws_eks_cluster.main.name
-# }
-
+###########################
+#
+# 아래 terraform_remote_state를 통해서 'k8s'워크스페이스가 'eks'워크스페이스의 tfstate 파일을 참조 할 수 있다.
+#
 data "terraform_remote_state" "eks" {
   backend = "remote"  # Terraform Cloud 백엔드를 가리킴
   config = {
@@ -18,10 +12,10 @@ data "terraform_remote_state" "eks" {
   }
 }
 
-provider "aws" {
-    version = "5.70"
-    region = "ap-northeast-2"
-}
+# provider "aws" {
+#     version = "5.70"
+#     region = "ap-northeast-2"
+# }
 
 # Kubernetes provider 설정
 provider "kubernetes" {
