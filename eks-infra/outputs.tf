@@ -17,3 +17,7 @@ output "eks_node_group_name" {
 output "eks_node_group_role_arn" {
   value = aws_iam_role.eks_node_role.arn
 }
+
+output "aws_eks_cluster" {
+  value = aws_eks_cluster.main.name
+}
