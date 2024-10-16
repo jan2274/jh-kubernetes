@@ -25,3 +25,7 @@ variable "db_passwd" {
   type = string
   # terraform cloud에 sensitive로 값을 저장하여 외부 노출 방지
 }
+
+variable "cluster_ca_certificate" {
+  type = string
+}
