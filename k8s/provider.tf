@@ -18,6 +18,11 @@ data "terraform_remote_state" "eks" {
   }
 }
 
+provider "aws" {
+    version = "5.70"
+    region = "ap-northeast-2"
+}
+
 # Kubernetes provider 설정
 provider "kubernetes" {
   host                   = data.terraform_remote_state.eks.outputs.eks_cluster_endpoint
