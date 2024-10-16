@@ -21,3 +21,7 @@ output "eks_node_group_role_arn" {
 output "aws_eks_cluster" {
   value = aws_eks_cluster.main.name
 }
+
+output "eks_cluster_ca" {
+  value = aws_eks_cluster.main.certificate_authority.0.data
+}
