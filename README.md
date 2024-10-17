@@ -6,7 +6,7 @@
 
 # 1016
 1. Terraform으로 aws 인프라를 생성과 eks클러스터 내의 리소스를 생성하는 것으로 프로젝트를 분할
-2. Nginx, Jenkins, DB 각각의 deployment 생성 확인
+2. nginx, jenkins, DB 각각의 deployment 생성 확인
 # 본격적인 CI/CD 테스트 시작
 
 # 1017
