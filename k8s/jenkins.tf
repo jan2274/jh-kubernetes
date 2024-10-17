@@ -51,7 +51,7 @@ resource "kubernetes_deployment" "jenkins" {
       spec {
         container {
           name  = "jenkins-container"
-          image = "jenkins/jenkins:lts"  # Jenkins의 LTS 버전 사용
+          image = "jenkins/jenkins:lts-jdk11"  # Jenkins의 LTS 버전 사용
 
           port {
             container_port = 8080  # Jenkins 웹 인터페이스
