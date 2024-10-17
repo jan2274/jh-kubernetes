@@ -5,4 +5,5 @@
 
 
 1017
-jenkins web 접속을 위한 서비스 생성
+1. jenkins web 접속을 위한 service 코드 생성
+2. instance 크기 t2.medium에서 t2.small로 변경
