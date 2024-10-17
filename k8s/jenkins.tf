@@ -1,3 +1,28 @@
+############## 서비스 ###############
+resource "kubernetes_service" "nginx" {
+  metadata {
+    name      = "jenkins-service"
+    namespace = "default"
+    labels = {
+      app = "jenkins"
+    }
+  }
+
+  spec {
+    selector = {
+      app = "jenkins"
+    }
+
+    port {
+      port        = 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+}
+
+############## deployment ###############
 resource "kubernetes_deployment" "jenkins" {
   metadata {
     name      = "jenkins"
