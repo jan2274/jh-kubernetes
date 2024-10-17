@@ -7,4 +7,4 @@
 1017
 1. jenkins web 접속을 위한 service 코드 생성
 2. instance 크기 t2.medium에서 t2.small로 변경
-3. git, github integration, kubernetes, kubernetes CLI, ssh pipeline steps 5개의 플러그인 설치
+3. git, github integration, kubernetes, kubernetes CLI, ssh pipeline steps, strict crumb issuer 6개의 플러그인 설치
