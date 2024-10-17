@@ -69,10 +69,10 @@ resource "kubernetes_deployment" "jenkins" {
             value = "-Djenkins.install.runSetupWizard=false"  # 설치 마법사 비활성화
           }
 
-#          env {
-#            name  = "JENKINS_OPTS"
-#            value = "--prefix=/jenkins"  # Jenkins URL 경로 설정
-#          }
+          env {
+            name  = "JENKINS_OPTS"
+            value = "--prefix=/jenkins"  # Jenkins URL 경로 설정
+          }
         }
       }
     }
