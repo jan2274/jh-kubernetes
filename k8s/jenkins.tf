@@ -1,5 +1,5 @@
 ############## 서비스 ###############
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "jenkins" {
   metadata {
     name      = "jenkins-service"
     namespace = "default"
