@@ -18,7 +18,7 @@ variable "private_subnet_cidrs" {
 }
 
 variable "instance_type" {
-  default = "t2.medium"
+  default = "t2.small"
 }
 
 variable "db_passwd" {
