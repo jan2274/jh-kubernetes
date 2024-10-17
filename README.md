@@ -18,3 +18,4 @@
 - git과 jenkins를 연동화는 과정에서 git의 토큰을 jenkins에 credential로 등록하였으나 jenkins에서 등록된 credential을 인식하지 못함
 - 403 에러 발생 때문에 인식을 못하는 것인지 의심되는 상황
 - bastion이나 인스턴스를 하나 더 생성해서 젠킨스 설치 테스트
+- 인스턴스 사용을 위해 vpc 리소스는 생성되어 있음
