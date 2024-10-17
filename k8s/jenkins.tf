@@ -72,7 +72,7 @@ resource "kubernetes_deployment" "jenkins" {
 #          env {
 #            name  = "JENKINS_OPTS"
 #            value = "--prefix=/jenkins"  # Jenkins URL 경로 설정
-          }
+#          }
         }
       }
     }
