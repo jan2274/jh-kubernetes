@@ -69,10 +69,12 @@ resource "kubernetes_deployment" "jenkins" {
             value = "-Djenkins.install.runSetupWizard=false"  # 설치 마법사 비활성화
           }
 
-          env {
-            name  = "JENKINS_OPTS"
-            value = "--prefix=/jenkins"  # Jenkins URL 경로 설정
-          }
+#          env {
+#            name  = "JENKINS_OPTS"
+#            value = "--prefix=/jenkins"  # Jenkins URL 경로 설정
+#          }
+# 이 환경 변수를 사용하려면 젠킨스와 연결된 service인 Loadbalancer를 테라폼의 리소스로 가져와야 할 것이다.
+# 그래야 그 loadbalancer의 DNS를 변수화 시킬 수 있을 테니까
         }
       }
     }
