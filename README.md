@@ -23,4 +23,5 @@
 1021
 1. ec2에 jenkins 설치
 2. jenkins - git 연동
+- eks 클러스터 배포
 - git - aws 연동
