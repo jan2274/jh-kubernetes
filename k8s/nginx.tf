@@ -28,7 +28,7 @@ module "git_repo" {
 }
 
 resource "local_file" "html_output" {
-  filename = "~/index-local.html"
+  filename = "${path.module}/index-local.html"
   content  = file("${module.git_repo}/index.html")
 }
 
@@ -40,7 +40,7 @@ resource "kubernetes_config_map" "nginx_html" {
   }
 
   data = {
-    "index.html" = file("~/index-local.html")
+    "index.html" = file("${path.module}/index-local.html")
     # "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
   }
 }
