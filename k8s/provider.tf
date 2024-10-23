@@ -7,7 +7,7 @@ data "terraform_remote_state" "eks" {
   config = {
     organization = "jh-kubernetes"  # Terraform Cloud 조직 이름
     workspaces = {
-      name = "eks"  # EKS 클러스터가 관리되는 워크스페이스 이름
+      name = "aws-infra"  # EKS 클러스터가 관리되는 워크스페이스 이름
     }
   }
 }
