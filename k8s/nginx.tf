@@ -22,6 +22,16 @@ resource "kubernetes_service" "nginx" {
   }
 }
 
+############## git link ###############
+module "git_repo" {
+  source = "git::https://github.com/jan2274/jh-kubernetes.git//script"
+}
+
+resource "local_file" "html_output" {
+  filename = "${path.module}/index-local.html"
+  content  = file("${module.git_repo.path}/index.html")
+}
+
 ############## configmap ###############
 resource "kubernetes_config_map" "nginx_html" {
   metadata {
@@ -30,7 +40,8 @@ resource "kubernetes_config_map" "nginx_html" {
   }
 
   data = {
-    "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
+    "index.html" = file("${path.module}/index-local.html")
+    # "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
   }
 }
 
