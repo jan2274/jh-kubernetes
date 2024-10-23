@@ -95,10 +95,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks_cluster_role.name
 }
-# resource "aws_iam_role_policy_attachment" "AdministratorAccess" {
-#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-#   role       = aws_iam_role.eks_cluster_role.name
-# }
+
 
 # eks 클러스터 생성
 resource "aws_eks_cluster" "main" {
@@ -108,7 +105,6 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     subnet_ids = aws_subnet.public[*].id
     security_group_ids = [aws_security_group.eks_cluster_sg.id]
-    #   security_group_ids = [aws_security_group.eks_cluster_sg.id]
   }
 
   tags = {
@@ -120,9 +116,6 @@ resource "aws_eks_cluster" "main" {
 depends_on = [
   aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
 ]
-# depends_on = [
-#   aws_iam_role_policy_attachment.AdministratorAccess
-# ]
 }
 
 ######################## 노드 그룹 ########################
@@ -153,21 +146,17 @@ resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryRe
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_node_role.name
 }
-# resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKS_CNI_Policy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-#   role       = aws_iam_role.eks_node_role.name
-# }
+resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.eks_node_role.name
+}
 
-# resource "aws_iam_role_policy_attachment" "AdministratorAccess2" {
-#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-#   role       = aws_iam_role.eks_node_role.name
-# }
 
 
 # eks 노드 그룹 생성
 resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.main.name
-  node_group_name = "jh-eks-node-group3"
+  node_group_name = "jh-eks-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = aws_subnet.public[*].id
 
@@ -189,17 +178,10 @@ resource "aws_eks_node_group" "node_group" {
     Name = "jh-eks-node-group"
   }
 
-  labels = {
-    Name = "jh-eks-node"
-  }  
 
   depends_on = [
     aws_eks_cluster.main,
     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
   ]
-  # depends_on = [
-  #   aws_eks_cluster.main,
-  #   aws_iam_role_policy_attachment.AdministratorAccess2
-  # ]    
 }
