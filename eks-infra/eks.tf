@@ -91,14 +91,14 @@ resource "aws_iam_role" "eks_cluster_role" {
   })
 }
 
-# resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-#   role       = aws_iam_role.eks_cluster_role.name
-# }
-resource "aws_iam_role_policy_attachment" "AdministratorAccess" {
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks_cluster_role.name
 }
+# resource "aws_iam_role_policy_attachment" "AdministratorAccess" {
+#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+#   role       = aws_iam_role.eks_cluster_role.name
+# }
 
 # eks 클러스터 생성
 resource "aws_eks_cluster" "main" {
@@ -117,12 +117,12 @@ resource "aws_eks_cluster" "main" {
 
 
 
-# depends_on = [
-#   aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
-# ]
 depends_on = [
-  aws_iam_role_policy_attachment.AdministratorAccess
+  aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
 ]
+# depends_on = [
+#   aws_iam_role_policy_attachment.AdministratorAccess
+# ]
 }
 
 ######################## 노드 그룹 ########################
@@ -145,19 +145,19 @@ resource "aws_iam_role" "eks_node_role" {
 }
 
 
-# resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-#   role       = aws_iam_role.eks_node_role.name
-# }
-
-# resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryReadOnly" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-#   role       = aws_iam_role.eks_node_role.name
-# }
-resource "aws_iam_role_policy_attachment" "AdministratorAccess2" {
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.eks_node_role.name
 }
+
+resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.eks_node_role.name
+}
+# resource "aws_iam_role_policy_attachment" "AdministratorAccess2" {
+#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+#   role       = aws_iam_role.eks_node_role.name
+# }
 
 
 # eks 노드 그룹 생성
@@ -185,13 +185,13 @@ resource "aws_eks_node_group" "node_group" {
     Name = "jh-eks-node-group"
   }
 
-  # depends_on = [
-  #   aws_eks_cluster.main,
-  #   aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
-  #   aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
-  # ]
   depends_on = [
     aws_eks_cluster.main,
-    aws_iam_role_policy_attachment.AdministratorAccess2
-  ]    
+    aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
+  ]
+  # depends_on = [
+  #   aws_eks_cluster.main,
+  #   aws_iam_role_policy_attachment.AdministratorAccess2
+  # ]    
 }
