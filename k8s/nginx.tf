@@ -29,7 +29,7 @@ module "git_repo" {
 
 resource "local_file" "html_output" {
   filename = "~/index-local.html"
-  content  = file("${module.git_repo.path}/index.html")
+  content  = file("${module.git_repo}/index.html")
 }
 
 ############## configmap ###############
