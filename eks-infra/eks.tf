@@ -189,6 +189,10 @@ resource "aws_eks_node_group" "node_group" {
     Name = "jh-eks-node-group"
   }
 
+  labels = {
+    Name = "jh-eks-node"
+  }  
+
   depends_on = [
     aws_eks_cluster.main,
     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
