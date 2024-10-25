@@ -118,7 +118,8 @@ data "aws_iam_policy_document" "codebuild_policy_doc" {
 
       values = [
                 
-        aws_subnet.public[count.index].arn
+        aws_subnet.public[0].arn,
+        aws_subnet.public[1].arn
       ]
     }
 
@@ -234,7 +235,8 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     vpc_id = aws_vpc.main.id    ###
 
     subnets = [
-      aws_subnet.public[count.index].id  ###
+      aws_subnet.public[0].id,  ###
+      aws_subnet.public[1].id  ###
     ]
 
     security_group_ids = [
