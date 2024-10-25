@@ -50,10 +50,10 @@ resource "aws_s3_bucket" "s3_codebuild" {
   bucket = "jh-s3-codebuild"
 }
 
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.s3_codebuild.id
-  acl    = "private"
-}
+# resource "aws_s3_bucket_acl" "bucket_acl" {
+#   bucket = aws_s3_bucket.s3_codebuild.id
+#   acl    = "private"
+# }
 
 
 
