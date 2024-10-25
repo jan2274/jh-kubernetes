@@ -21,6 +21,10 @@ variable "instance_type" {
   default = "t2.small"
 }
 
+variable "instance_type2" {
+  default = "t2.micro"
+}
+
 variable "db_passwd" {
   type = string
   # terraform cloud에 sensitive로 값을 저장하여 외부 노출 방지
