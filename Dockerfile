@@ -13,6 +13,7 @@ RUN cp /tmp/jh-kubernetes/script/index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
 EXPOSE 80
+EXPOSE 443
 
 # Start NGINX server
 CMD ["nginx", "-g", "daemon off;"]
