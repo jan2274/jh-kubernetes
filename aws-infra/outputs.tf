@@ -30,7 +30,3 @@ output "eks_cluster_ca" {
 #   value       = aws_ecr_repository.ecr_repo.repository_url
 #   description = "The URI of the ECR repository"
 # }
-
-# output "ecr_uri" {
-#   value = var.ecr_repository_uri
-# }
