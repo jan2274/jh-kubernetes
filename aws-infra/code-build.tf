@@ -189,21 +189,21 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 #   }
 
   environment {
-    compute_type                = var.instance_type2
+    compute_type                = var.instance_type2    ###
     image                       = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
 
-    environment_variable {
-      name  = "SOME_KEY1"
-      value = "SOME_VALUE1"
-    }
+    # environment_variable {
+    #   name  = "SOME_KEY1"
+    #   value = "SOME_VALUE1"
+    # }
 
-    environment_variable {
-      name  = "SOME_KEY2"
-      value = "SOME_VALUE2"
-      type  = "PARAMETER_STORE"
-    }
+    # environment_variable {
+    #   name  = "SOME_KEY2"
+    #   value = "SOME_VALUE2"
+    #   type  = "PARAMETER_STORE"
+    # }
   }
 
   logs_config {
@@ -214,13 +214,13 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 
     s3_logs {
       status   = "ENABLED"
-      location = "${aws_s3_bucket.example.id}/build-log"
+      location = "${aws_s3_bucket.s3_codebuild.id}/build-log"   ###
     }
   }
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/mitchellh/packer.git"
+    location        = "https://github.com/jan2274/jh-kubernetes.git"    ###
     git_clone_depth = 1
 
     git_submodules_config {
@@ -231,16 +231,15 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
   source_version = "master"
 
   vpc_config {
-    vpc_id = aws_vpc.example.id
+    vpc_id = aws_vpc.mian.id    ###
 
     subnets = [
-      aws_subnet.example1.id,
-      aws_subnet.example2.id,
+      aws_subnet.public.id  ###
     ]
 
     security_group_ids = [
-      aws_security_group.example1.id,
-      aws_security_group.example2.id,
+      aws_security_group.eks_node_sg.id ###
+    #   aws_security_group.example2.id,
     ]
   }
 
