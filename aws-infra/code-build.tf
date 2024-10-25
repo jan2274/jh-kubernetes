@@ -221,7 +221,7 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/jan2274/jh-kubernetes.git"    ###
+    location        = "https://github.com/jan2274/jh-kubernetes/script"    ###
     git_clone_depth = 1
 
     git_submodules_config {
