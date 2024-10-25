@@ -51,7 +51,7 @@ resource "aws_s3_bucket" "s3_codebuild" {
 }
 
 resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.jh-s3-codebuild.id
+  bucket = aws_s3_bucket.s3_codebuild.id
   acl    = "private"
 }
 
@@ -118,7 +118,7 @@ data "aws_iam_policy_document" "codebuild_policy_doc" {
 
       values = [
                 
-        aws_subnet.public.arn
+        aws_subnet.public[count.index].arn
       ]
     }
 
@@ -231,10 +231,10 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
   source_version = "master"
 
   vpc_config {
-    vpc_id = aws_vpc.mian.id    ###
+    vpc_id = aws_vpc.main.id    ###
 
     subnets = [
-      aws_subnet.public.id  ###
+      aws_subnet.public[count.index].id  ###
     ]
 
     security_group_ids = [
