@@ -25,3 +25,12 @@ output "aws_eks_cluster" {
 output "eks_cluster_ca" {
   value = aws_eks_cluster.main.certificate_authority.0.data
 }
+
+# output "ecr_repository_uri" {
+#   value       = aws_ecr_repository.ecr_repo.repository_url
+#   description = "The URI of the ECR repository"
+# }
+
+output "ecr_uri" {
+  value = var.ecr_repository_uri
+}

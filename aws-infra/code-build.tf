@@ -221,9 +221,11 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/jan2274/jh-kubernetes/script"    ###
+    location        = "https://github.com/jan2274/jh-kubernetes.git"    ###
     git_clone_depth = 1
 
+    buildspec = "aws-infra/buildspec_template.yaml"
+    
     git_submodules_config {
       fetch_submodules = true
     }
