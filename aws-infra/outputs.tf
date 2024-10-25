@@ -31,6 +31,6 @@ output "eks_cluster_ca" {
 #   description = "The URI of the ECR repository"
 # }
 
-output "ecr_uri" {
-  value = var.ecr_repository_uri
-}
+# output "ecr_uri" {
+#   value = var.ecr_repository_uri
+# }
