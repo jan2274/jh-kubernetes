@@ -30,7 +30,7 @@ variable "db_passwd" {
   # terraform cloud에 sensitive로 값을 저장하여 외부 노출 방지
 }
 
-variable "ecr_repository_uri" {
-  default       = aws_ecr_repository.ecr_repo.repository_url
-  description = "The URI of the ECR repository"
-}
+# variable "ecr_repository_uri" {
+#   default       = aws_ecr_repository.ecr_repo.repository_url
+#   description = "The URI of the ECR repository"
+# }
