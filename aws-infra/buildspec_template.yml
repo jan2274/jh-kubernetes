@@ -4,15 +4,14 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-2 #| docker login --username AWS --password-stdin ${ecr_domain}
-      # - aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecr_domain}      
+      - aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecr_domain}    
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
       - docker build -t nginx:latest .
-      - docker image tag nginx:latest ${ecr_uri}/ecr-codebuild/nginx:latest
+      - docker image tag nginx:latest ${ecr_domain}/${image_repo_name}/nginx:latest
       - echo "$(ls -l)"
 
   post_build:
