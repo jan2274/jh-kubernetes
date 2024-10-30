@@ -178,10 +178,9 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     git_clone_depth = 1
 
     buildspec = templatefile("buildspec_template.yml", {
-      ecr_uri = aws_ecr_repository.ecr_repo.repository_url
+      ecr_uri = aws_ecr_repository.ecr_repo.repository_url,
+      ecr_domain = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com"
     })
-
-
     
     git_submodules_config {
       fetch_submodules = true
