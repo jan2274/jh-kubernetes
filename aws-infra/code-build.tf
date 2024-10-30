@@ -191,7 +191,6 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 
     subnets = [
       aws_subnet.private[0].id,  ###
-      aws_subnet.private[1].id  ###
     ]
 
     security_group_ids = [
