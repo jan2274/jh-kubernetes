@@ -11,7 +11,7 @@ phases:
       - echo Building the Docker image...
       - echo "$(ls -l)"
       - docker build -t ${ecr_domain}/${image_repo_name}:latest .
-      - docker image tag nginx:latest ${ecr_domain}/${image_repo_name}:latest
+      # - docker image tag nginx:latest ${ecr_domain}/${image_repo_name}:latest
       - echo "$(ls -l)"
 
   post_build:
