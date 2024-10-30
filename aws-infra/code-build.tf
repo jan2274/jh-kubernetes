@@ -110,7 +110,7 @@ data "aws_iam_policy_document" "codebuild_policy_doc" {
   statement {
     effect    = "Allow"
     actions   = ["ec2:CreateNetworkInterfacePermission"]
-    resources = ["arn:aws:ec2:us-east-1:123456789012:network-interface/*"]
+    resources = ["arn:aws:ec2:ap-northeast-2:381492128216:network-interface/*"] ###
 
     condition {
       test     = "StringEquals"
