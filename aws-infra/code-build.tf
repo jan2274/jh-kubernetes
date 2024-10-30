@@ -181,7 +181,7 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
       # ecr_uri = aws_ecr_repository.ecr_repo.repository_url,
       ecr_domain = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com",
       region     = data.aws_region.current.name
-      image_repo_name = aws_ecr_repository.name
+      image_repo_name = aws_ecr_repository.ecr_repo.name
     })
     
     git_submodules_config {
