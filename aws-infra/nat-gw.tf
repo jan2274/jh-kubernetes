@@ -14,7 +14,7 @@ resource "aws_eip" "nat" {
 
 # NAT Gateway in Public Subnet
 resource "aws_nat_gateway" "nat" {
-  allocation_id           = aws_eip.nat[0].id
+  allocation_id           = aws_eip.nat.id
   subnet_id               = aws_subnet.public[0].id  # NAT 게이트웨이를 첫 번째 퍼블릭 서브넷에 배치
   connectivity_type       = "public"
 
@@ -27,5 +27,5 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_route" "private" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat[0].id
+  nat_gateway_id         = aws_nat_gateway.nat.id
 }
