@@ -118,8 +118,8 @@ data "aws_iam_policy_document" "codebuild_policy_doc" {
 
       values = [
                 
-        aws_subnet.public[0].arn,
-        aws_subnet.public[1].arn
+        aws_subnet.private[0].arn,
+        aws_subnet.private[1].arn
       ]
     }
 
@@ -224,21 +224,21 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     location        = "https://github.com/jan2274/jh-kubernetes.git"    ###
     git_clone_depth = 1
 
-    buildspec = "aws-infra/buildspec_template.yaml"
+    buildspec = "aws-infra/buildspec_template.yml"
     
     git_submodules_config {
       fetch_submodules = true
     }
   }
 
-  source_version = "master"
+  source_version = "main"
 
   vpc_config {
     vpc_id = aws_vpc.main.id    ###
 
     subnets = [
-      aws_subnet.public[0].id,  ###
-      aws_subnet.public[1].id  ###
+      aws_subnet.private[0].id,  ###
+      aws_subnet.private[1].id  ###
     ]
 
     security_group_ids = [
