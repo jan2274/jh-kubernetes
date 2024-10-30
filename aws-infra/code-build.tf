@@ -108,7 +108,8 @@ resource "aws_iam_policy" "codebuild_ecr_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
-          "ecr:GetAuthorizationToken"
+          "ecr:GetAuthorizationToken",
+          "codestar-connections:UseConnection"
         ]
         Resource = "*"
       }
