@@ -33,7 +33,7 @@ resource "aws_eip" "nat" {
   vpc   = true
 
   tags = {
-    Name = "jh-eip-nat-${count.index + 1}"
+    Name = "jh-eip-nat"
   }
 }
 
