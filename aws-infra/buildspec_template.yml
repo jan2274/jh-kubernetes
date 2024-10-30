@@ -11,11 +11,11 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
-      - docker build -t nginx:latest .
+      - docker build -t amazonlinux:2 .
       - echo "$(ls -l)"
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push ${ecr_uri}/nginx:latest
+      - docker push ${ecr_uri}/amazonlinux:2
