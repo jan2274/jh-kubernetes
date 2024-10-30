@@ -177,7 +177,11 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     location        = "https://github.com/jan2274/jh-kubernetes.git"    ###
     git_clone_depth = 1
 
-    buildspec = "aws-infra/buildspec_template.yml"
+    buildspec = templatefile("aws-infra/buildspec_template.yml", {
+      ecr_uri = aws_ecr_repository.ecr_repo.repository_url
+    })
+
+
     
     git_submodules_config {
       fetch_submodules = true
