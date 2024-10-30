@@ -11,7 +11,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
-      - docker build -t amazonlinux:2 .
+      - docker build -t ${ecr_uri}/amazonlinux:2 .
       - echo "$(ls -l)"
 
   post_build:
