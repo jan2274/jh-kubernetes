@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "ecr_repo" {
-  name = "ecr-codebuild"
+  name = "ecr-nginx"
 
   image_tag_mutability = "MUTABLE"
   force_delete         = true
