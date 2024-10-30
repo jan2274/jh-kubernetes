@@ -10,12 +10,10 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
-      - docker build -t ${ecr_domain}/${image_repo_name}:latest .
-      # - docker image tag nginx:latest ${ecr_domain}/${image_repo_name}:latest
-      - echo "$(ls -l)"
+      - docker build -t ${ecr_domain}/ecr-codebuild:latest .
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push ${ecr_domain}/${image_repo_name}:latest
+      - docker push ${ecr_domain}/ecr-codebuild:latest
