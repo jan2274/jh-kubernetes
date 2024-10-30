@@ -10,9 +10,6 @@ RUN git clone https://github.com/jan2274/jh-kubernetes.git /tmp/jh-kubernetes
 
 # Copy the index.html from the cloned repository to the NGINX HTML directory
 RUN ls -l
-RUN ls /tmp
-RUN ls /tmp/jh-kubernetes
-RUN ls /tmp/jh-kubernetes/script
 
 RUN cp /tmp/jh-kubernetes/script/index.html /usr/share/nginx/html/index.html
 
