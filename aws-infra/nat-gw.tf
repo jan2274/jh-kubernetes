@@ -19,7 +19,7 @@ resource "aws_nat_gateway" "nat" {
   connectivity_type       = "public"
 
   tags = {
-    Name = "jh-nat-gateway-${count.index + 1}"
+    Name = "jh-nat-gateway"
   }
 }
 
