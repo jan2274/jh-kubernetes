@@ -1,11 +1,10 @@
-# NAT Instance 생성
+# NAT 인스턴스 생성
 resource "aws_instance" "nat" {
-  ami           = "ami-0abcdef1234567890"
-  instance_type = var.instance_type2
-  subnet_id     = aws_subnet.public[0].id
-  
-  # 필요한 IAM 역할이 있으면 추가
+  ami                    = "ami-0abcdef1234567890" # NAT 인스턴스 AMI ID
+  instance_type          = var.instance_type2
+  subnet_id              = aws_subnet.public[0].id
   associate_public_ip_address = true
+  source_dest_check      = false # NAT 인스턴스에서는 Source/Destination 체크 비활성화
 
   tags = {
     Name = "jh-nat-instance"
@@ -16,7 +15,7 @@ resource "aws_instance" "nat" {
 resource "aws_security_group" "nat_sg" {
   vpc_id = aws_vpc.main.id
 
-  # 아웃바운드 트래픽을 허용
+  # 아웃바운드 트래픽 허용
   egress {
     from_port   = 0
     to_port     = 0
@@ -24,12 +23,12 @@ resource "aws_security_group" "nat_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # 프라이빗 서브넷의 인스턴스에서 접근을 허용하는 인바운드 규칙
+  # 프라이빗 서브넷에서 NAT 인스턴스로의 인바운드 트래픽 허용
   ingress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = var.private_subnet_cidrs
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.private_subnet_cidrs
   }
 
   tags = {
@@ -37,10 +36,9 @@ resource "aws_security_group" "nat_sg" {
   }
 }
 
-# 프라이빗 서브넷에 대한 라우트 테이블 업데이트
+# 프라이빗 서브넷에 대한 라우트 테이블 업데이트 (NAT 인스턴스의 네트워크 인터페이스 사용)
 resource "aws_route" "nat_route" {
-  count          = length(var.private_subnet_cidrs)
-  route_table_id = aws_route_table.private.id
+  route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  instance_id = aws_instance.nat.id
+  network_interface_id   = aws_instance.nat.primary_network_interface_id
 }
