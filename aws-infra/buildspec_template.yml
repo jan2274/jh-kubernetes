@@ -11,7 +11,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
-      - docker build -t ${ecr_uri}/nginx:latest .
+      - docker build -t nginx:latest .
+      - docker image tag nginx:latest ${ecr_uri}/nginx:latest
       - echo "$(ls -l)"
 
   post_build:
