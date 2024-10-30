@@ -136,28 +136,12 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     type = "NO_ARTIFACTS"
   }
 
-#   cache {
-#     type     = "S3"
-#     location = aws_s3_bucket.example.bucket
-#   }
-
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
-
-    # environment_variable {
-    #   name  = "SOME_KEY1"
-    #   value = "SOME_VALUE1"
-    # }
-
-    # environment_variable {
-    #   name  = "SOME_KEY2"
-    #   value = "SOME_VALUE2"
-    #   type  = "PARAMETER_STORE"
-    # }
   }
 
   logs_config {
