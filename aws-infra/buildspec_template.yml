@@ -18,4 +18,4 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push ${ecr_uri}/ecr-codebuild/nginx:latest
+      - docker push ${ecr_domain}/ecr-codebuild/nginx:latest
