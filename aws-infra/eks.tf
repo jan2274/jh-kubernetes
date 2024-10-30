@@ -27,50 +27,50 @@
 # }
 
 
-# # EKS 노드 그룹 보안 그룹
-# resource "aws_security_group" "eks_node_sg" {
-#   name        = "eks-node-sg"
-#   description = "Security group for EKS Worker Nodes"
-#   vpc_id      = aws_vpc.main.id
+# # # EKS 노드 그룹 보안 그룹
+# # resource "aws_security_group" "eks_node_sg" {
+# #   name        = "eks-node-sg"
+# #   description = "Security group for EKS Worker Nodes"
+# #   vpc_id      = aws_vpc.main.id
 
-#   # 노드 -> 클러스터로의 통신 허용 (TCP 443)
-#   ingress {
-#     description = "Allow cluster communication"
-#     from_port   = 443
-#     to_port     = 443
-#     protocol    = "tcp"
-#     cidr_blocks = [aws_vpc.main.cidr_block]
-#   }
+# #   # 노드 -> 클러스터로의 통신 허용 (TCP 443)
+# #   ingress {
+# #     description = "Allow cluster communication"
+# #     from_port   = 443
+# #     to_port     = 443
+# #     protocol    = "tcp"
+# #     cidr_blocks = [aws_vpc.main.cidr_block]
+# #   }
 
-#   # 외부에서의 SSH 접근 허용 (TCP 22)
-#   ingress {
-#     description = "Allow SSH access from outside"
-#     from_port   = 22
-#     to_port     = 22
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
+# #   # 외부에서의 SSH 접근 허용 (TCP 22)
+# #   ingress {
+# #     description = "Allow SSH access from outside"
+# #     from_port   = 22
+# #     to_port     = 22
+# #     protocol    = "tcp"
+# #     cidr_blocks = ["0.0.0.0/0"]
+# #   }
 
-#   # EKS 노드 간 통신 허용
-#   ingress {
-#     description = "Allow node-to-node communication"
-#     from_port   = 0
-#     to_port     = 65535
-#     protocol    = "tcp"
-#     cidr_blocks = [aws_vpc.main.cidr_block]
-#   }
+# #   # EKS 노드 간 통신 허용
+# #   ingress {
+# #     description = "Allow node-to-node communication"
+# #     from_port   = 0
+# #     to_port     = 65535
+# #     protocol    = "tcp"
+# #     cidr_blocks = [aws_vpc.main.cidr_block]
+# #   }
 
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
+# #   egress {
+# #     from_port   = 0
+# #     to_port     = 0
+# #     protocol    = "-1"
+# #     cidr_blocks = ["0.0.0.0/0"]
+# #   }
 
-#   tags = {
-#     Name = "eks-node-sg"
-#   }
-# }
+# #   tags = {
+# #     Name = "eks-node-sg"
+# #   }
+# # }
 
 # ######################## eks 클러스터 ########################
 # # eks 클러스터 역할 (IAM Role)
