@@ -1,6 +1,6 @@
-# resource "aws_s3_bucket" "s3_codebuild" {
-#   bucket = "jh-s3-codebuild"
-# }
+resource "aws_s3_bucket" "s3_codebuild" {
+  bucket = "jh-s3-codebuild"
+}
 
 
 # Trust relationship for role
@@ -102,8 +102,7 @@ resource "aws_iam_policy" "codebuild_ecr_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
-          "ecr:GetAuthorizationToken",
-#          "codestar-connections:UseConnection"
+          "ecr:GetAuthorizationToken"
         ]
         Resource = "*"
       }

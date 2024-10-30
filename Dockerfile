@@ -1,5 +1,5 @@
 # Use the official NGINX image as the base image
-FROM FROM amazonlinux:2
+FROM amazonlinux:2
 
 # Install git to clone the repository
 RUN yum update && yum install -y git && rm -rf /var/lib/apt/lists/*
@@ -9,9 +9,7 @@ RUN mkdir /tmp/jh-kubernetes
 RUN git clone https://github.com/jan2274/jh-kubernetes.git /tmp/jh-kubernetes
 
 # Copy the index.html from the cloned repository to the NGINX HTML directory
-RUN ls -l
-
-RUN cp /tmp/jh-kubernetes/script/index.html /usr/share/nginx/html/index.html
+RUN cp ./script/index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
 EXPOSE 80
