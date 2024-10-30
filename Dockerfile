@@ -1,5 +1,5 @@
 # Use the official NGINX image as the base image
-FROM httpd:latest
+FROM nginx:latest
 
 # Install git to clone the repository
 # RUN yum update && yum install -y git && rm -rf /var/lib/apt/lists/*
