@@ -1,6 +1,6 @@
 # NAT 인스턴스 생성
 resource "aws_instance" "nat" {
-  ami                    = "ami-02c3329a4b4aba6a48" # NAT 인스턴스 AMI ID
+  ami                    = "ami-02c329a4b4aba6a48" # NAT 인스턴스 AMI ID
   instance_type          = var.instance_type2
   subnet_id              = aws_subnet.public[0].id
   associate_public_ip_address = true
