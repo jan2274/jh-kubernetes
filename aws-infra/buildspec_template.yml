@@ -10,7 +10,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo "$(ls -l)"
-      - docker build -t nginx:latest .
+      - docker build -t ${ecr_domain}/${image_repo_name}:latest .
       - docker image tag nginx:latest ${ecr_domain}/${image_repo_name}:latest
       - echo "$(ls -l)"
 
