@@ -199,7 +199,7 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
     ]
 
     security_group_ids = [
-      aws_security_group.eks_node_sg.id ###
+      aws_security_group.default.id ###
     #   aws_security_group.example2.id,
     ]
   }
