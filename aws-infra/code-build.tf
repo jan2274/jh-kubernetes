@@ -108,7 +108,7 @@ resource "aws_iam_policy" "codebuild_ecr_policy" {
       },
       {
         Effect = "Allow"
-        Action = "codestar-connections:UseConnection"
+        Action = "codestar-connections:*"
         Resource = "*"
       }
     ]
