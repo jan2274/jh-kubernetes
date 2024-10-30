@@ -6,6 +6,19 @@ resource "aws_instance" "nat" {
   associate_public_ip_address = true
   source_dest_check      = false # NAT 인스턴스에서는 Source/Destination 체크 비활성화
 
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+              sysctl -p
+
+              # 방화벽 설정: IP 마스커레이딩 활성화
+              iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+              # iptables 설정을 유지하도록 설정
+              iptables-save > /etc/iptables/rules.v4
+              EOF
+
+
   tags = {
     Name = "jh-nat-instance"
   }
