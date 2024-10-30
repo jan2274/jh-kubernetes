@@ -23,7 +23,9 @@
 # }
 
 
-
+# code build에서 스크립트 실행을 위해 생성하는 인스턴스는 공인IP를 갖지 못하기 떄문에
+# private에 인스턴스를 생성하도록 하고 public에 NAT GW를 생성하여 외부와의 통신을 허용한다.
+# 이를 위해 NAT GW를 생성하는 코드
 ######################
 # Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
