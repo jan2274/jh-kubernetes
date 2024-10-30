@@ -103,13 +103,13 @@ resource "aws_iam_policy" "codebuild_ecr_policy" {
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
           "ecr:GetAuthorizationToken"
-        ]
+        ],
         Resource = "*"
-        
+      },
+      {
         Effect: "Allow"
         Action: "codestar-connections:UseConnection"
         Resource: "arn:aws:codeconnections:ap-northeast-2:381492128216:connection/2c51ea2b-fa18-48ac-8b81-abc031f10822"
-
       }
     ]
   })
