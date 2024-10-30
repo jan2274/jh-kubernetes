@@ -26,7 +26,7 @@ resource "aws_nat_gateway" "nat" {
 
 # Update Private Route Table to Use NAT Gateway
 resource "aws_route" "private" {
-  count                  = length(aws_subnet.private)
+  count                  = 1
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.nat[0].id
