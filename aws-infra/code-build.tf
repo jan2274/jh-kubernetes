@@ -1,8 +1,9 @@
+###################### S3 for log ######################
 resource "aws_s3_bucket" "s3_codebuild" {
   bucket = "jh-s3-codebuild"
 }
 
-
+###################### Role and Policy ######################
 # Trust relationship for role
 data "aws_iam_policy_document" "assume_role" {
   statement {
@@ -126,7 +127,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_attach" {
   policy_arn = aws_iam_policy.codebuild_ecr_policy.arn
 }
 
-################## code build ##################
+###################### codebuild ######################
 resource "aws_codebuild_project" "codebuild_imagebuild" {
   name          = "codebuild-imagebuild"
   build_timeout = 5
