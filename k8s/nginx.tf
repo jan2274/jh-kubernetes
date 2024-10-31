@@ -70,11 +70,11 @@ resource "kubernetes_deployment" "nginx" {
             container_port = 80 
           }
 ##########
-          volume_mount {
-            name       = "nginx-html"
-            mount_path = "/usr/share/nginx/html"
-            read_only  = true
-          }
+          # volume_mount {
+          #   name       = "nginx-html"
+          #   mount_path = "/usr/share/nginx/html"
+          #   read_only  = true
+          # }
 ##########          
         }
         # volume {
