@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo "$(ls -l)"
+      - echo "$(ls ./script)"
       - docker build -t ${ecr_domain}/${image_repo_name} .
 
   post_build:

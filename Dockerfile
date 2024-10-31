@@ -10,6 +10,7 @@ FROM nginx:latest
 
 # Copy the index.html from the cloned repository to the NGINX HTML directory
 RUN ls -l
+RUN ls /usr/share/nginx/html/
 COPY ./script/index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
