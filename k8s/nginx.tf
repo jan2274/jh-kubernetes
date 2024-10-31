@@ -24,7 +24,7 @@ resource "kubernetes_service" "nginx" {
 
 ############## for image ###############
 data "aws_ecr_image" "nginx_image" {
-  repository_name = aws_ecr_repository.ecr_repo.name
+  repository_name = "ecr-nginx"
   image_tag       = "latest"
 }
 
