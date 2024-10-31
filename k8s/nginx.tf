@@ -33,7 +33,7 @@ resource "kubernetes_service" "nginx" {
 #   data = {
 #     "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
 #   }
-}
+# }
 
 ############## deployment ###############
 resource "kubernetes_deployment" "nginx" {
