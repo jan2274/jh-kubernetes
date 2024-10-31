@@ -52,7 +52,8 @@ resource "kubernetes_deployment" "nginx" {
       spec {
         container {
           name  = "nginx"
-          image = "381492128216.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-nginx@sha256:63bac8c00919d405e9c6a89eece619081fafc13c8d1d0db4eb21085764a10478"
+          # image = "381492128216.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-nginx@sha256:63bac8c00919d405e9c6a89eece619081fafc13c8d1d0db4eb21085764a10478"
+          image = data.aws_ecr_image.nginx_image.image_uri
 
           port {
             container_port = 80 
