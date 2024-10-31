@@ -24,15 +24,15 @@ resource "kubernetes_service" "nginx" {
 
 
 ############## configmap ###############
-resource "kubernetes_config_map" "nginx_html" {
-  metadata {
-    name      = "nginx-html"
-    namespace = "default"
-  }
+# resource "kubernetes_config_map" "nginx_html" {
+#   metadata {
+#     name      = "nginx-html"
+#     namespace = "default"
+#   }
 
-  data = {
-    "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
-  }
+#   data = {
+#     "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
+#   }
 }
 
 ############## deployment ###############
@@ -64,7 +64,7 @@ resource "kubernetes_deployment" "nginx" {
       spec {
         container {
           name  = "nginx"
-          image = "nginx:latest"
+          image = "381492128216.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-nginx@sha256:63bac8c00919d405e9c6a89eece619081fafc13c8d1d0db4eb21085764a10478"
 
           port {
             container_port = 80 
@@ -77,15 +77,13 @@ resource "kubernetes_deployment" "nginx" {
           }
 ##########          
         }
-##########
-        volume {
-          name = "nginx-html"
+        # volume {
+        #   name = "nginx-html"
 
-          config_map {
-            name = kubernetes_config_map.nginx_html.metadata[0].name
-          }
-        }
-##########
+        #   config_map {
+        #     name = kubernetes_config_map.nginx_html.metadata[0].name
+        #   }
+        # }
       }
     }
   }
