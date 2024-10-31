@@ -22,10 +22,17 @@ resource "kubernetes_service" "nginx" {
   }
 }
 
-############## for image ###############
-data "aws_ecr_image" "nginx_image" {
-  repository_name = "ecr-nginx"
-  image_tag       = "latest"
+
+############## configmap ###############
+resource "kubernetes_config_map" "nginx_html" {
+  metadata {
+    name      = "nginx-html"
+    namespace = "default"
+  }
+
+  data = {
+    "index.html" = "<html><body><h1>Hello, World</h1></body></html>"
+  }
 }
 
 ############## deployment ###############
@@ -57,12 +64,28 @@ resource "kubernetes_deployment" "nginx" {
       spec {
         container {
           name  = "nginx"
-          image = nginx:latest
+          image = "nginx:latest"
 
           port {
             container_port = 80 
           }
+##########
+          volume_mount {
+            name       = "nginx-html"
+            mount_path = "/usr/share/nginx/html"
+            read_only  = true
+          }
+##########          
         }
+##########
+        volume {
+          name = "nginx-html"
+
+          config_map {
+            name = kubernetes_config_map.nginx_html.metadata[0].name
+          }
+        }
+##########
       }
     }
   }
