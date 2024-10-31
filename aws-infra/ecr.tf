@@ -7,3 +7,7 @@ resource "aws_ecr_repository" "ecr_repo" {
 
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
+data "aws_ecr_image" "nginx_image" {
+  repository_name = aws_ecr_repository.ecr_repo.name
+  image_tag       = "latest"
+}
