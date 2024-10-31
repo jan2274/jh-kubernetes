@@ -9,9 +9,3 @@ aws의 리소스 생성과 kubernetes 내부의 리소스 생성 프로젝트 �
    - Terraform 코드 전체를 apply하지 않고 세부적인 적용을 통해 세부적인 관리 용이성 확보
 
 next : Helm, AWS Codebuild
-
-#########################################
-# Codebuild
-목적: codebuild를 사용하여 일관성 있는 이미지 빌드 환경 구축
-
-next : AWS CodePipeline
