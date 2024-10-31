@@ -22,6 +22,11 @@ resource "kubernetes_service" "nginx" {
   }
 }
 
+############## for image ###############
+data "aws_ecr_image" "nginx_image" {
+  repository_name = aws_ecr_repository.ecr_repo.name
+  image_tag       = "latest"
+}
 
 ############## deployment ###############
 resource "kubernetes_deployment" "nginx" {
