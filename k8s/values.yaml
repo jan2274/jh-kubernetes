@@ -14,7 +14,7 @@ mysql:
     repository: mysql
     tag: 8.0
     pullPolicy: IfNotPresent
-  mysqlRootPassword: rootpassword123
+  mysqlRootPassword: #type when install
   service:
     type: ClusterIP
     port: 3306
