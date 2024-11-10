@@ -1,7 +1,6 @@
 replicaCount: 3
 image:
-  repository: nginx
-  tag: latest
+  image: 381492128216.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-nginx
   pullPolicy: IfNotPresent
 service:
   type: LoadBalancer
