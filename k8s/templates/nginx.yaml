@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 381492128216.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-nginx
+        image: "{{ .Values.image.image }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 80
