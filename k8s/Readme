@@ -1,4 +1,4 @@
-nginx/
+nginx-mysql/
 ├── Chart.yaml
 ├── values.yaml
 └── templates/
