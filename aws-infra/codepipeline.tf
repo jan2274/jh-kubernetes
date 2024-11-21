@@ -29,10 +29,16 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
           "s3:GetObject",
           "s3:ListBucket"
         ]
+
         Resource = [
-          "arn:aws:s3:::jh_s3_codepipeline",
-          "arn:aws:s3:::jh_s3_codepipeline/*"
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}",
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
         ]
+                
+        # Resource = [
+        #   "arn:aws:s3:::jh-s3-codepipeline",
+        #   "arn:aws:s3:::jh-s3-codepipeline/*"
+        # ]
       }
     ]
   })
