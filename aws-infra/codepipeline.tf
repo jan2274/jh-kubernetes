@@ -85,21 +85,21 @@ resource "aws_codepipeline" "pipeline" {
     }
   }
 
-  stage {
-    name = "Deploy"
+#   stage {
+#     name = "Deploy"
 
-    action {
-      name             = "DeployToECR"
-      category         = "Deploy"
-      owner            = "AWS"
-      provider         = "ECR"
-      version          = "1"
-      input_artifacts  = ["build_output"]
+#     action {
+#       name             = "DeployToECR"
+#       category         = "Deploy"
+#       owner            = "AWS"
+#       provider         = "ECR"
+#       version          = "1"
+#       input_artifacts  = ["build_output"]
 
-      configuration = {
-        RepositoryName = aws_ecr_repository.ecr_repo.name
-        ImageTag       = "latest"
-      }
-    }
-  }
+#       configuration = {
+#         RepositoryName = aws_ecr_repository.ecr_repo.name
+#         ImageTag       = "latest"
+#       }
+#     }
+#   }
 }
