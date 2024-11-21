@@ -24,6 +24,28 @@ resource "aws_iam_role" "codebuild_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
+resource "aws_iam_role_policy" "codebuild_s3_policy" {
+  name = "CodeBuildS3Policy"
+  role = aws_iam_role.codebuild_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}",
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
+        ]
+      }
+    ]
+  })
+}
 
 data "aws_iam_policy_document" "codebuild_policy_doc" {
   statement {
@@ -127,7 +149,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_attach" {
   policy_arn = aws_iam_policy.codebuild_ecr_policy.arn
 }
 
-###################### codebuild ######################
+###################### codebuild 생성 ######################
 resource "aws_codebuild_project" "codebuild_imagebuild" {
   name          = "codebuild-imagebuild"
   build_timeout = 5
