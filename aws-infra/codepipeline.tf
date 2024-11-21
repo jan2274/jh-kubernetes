@@ -84,7 +84,7 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
 #   })
 # }
 
-#################### 코드파이프라인한테 버킷한테의 접근 권한 부여 ####################
+#################### 코드파이프라인한테 두 버킷한테의 접근 권한 부여 ####################
 resource "aws_iam_role_policy" "codepipeline_s3_policy" {
   name = "CodePipelineS3Policy"
   role = aws_iam_role.codepipeline_role.name
@@ -102,6 +102,8 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
         Resource = [
           "${aws_s3_bucket.jh_s3_codepipeline.arn}",
           "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
+          "${aws_s3_bucket.jh_s3_codebuild.arn}",
+          "${aws_s3_bucket.jh_s3_codebuild.arn}/*"
         #   "arn:aws:s3:::jh-s3-codepipeline",
         #   "arn:aws:s3:::jh-s3-codepipeline/*"
         ]

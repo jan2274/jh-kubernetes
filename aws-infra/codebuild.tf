@@ -1,5 +1,5 @@
 ###################### S3 for log ######################
-resource "aws_s3_bucket" "s3_codebuild" {
+resource "aws_s3_bucket" "jh_s3_codebuild" {
   bucket = "jh-s3-codebuild"
 }
 
@@ -81,8 +81,8 @@ data "aws_iam_policy_document" "codebuild_policy_doc" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      aws_s3_bucket.s3_codebuild.arn,
-      "${aws_s3_bucket.s3_codebuild.arn}/*",
+      aws_s3_bucket.jh_s3_codebuild.arn,
+      "${aws_s3_bucket.jh_s3_codebuild.arn}/*",
     ]
   }
 }
@@ -153,7 +153,7 @@ resource "aws_codebuild_project" "codebuild_imagebuild" {
 
     s3_logs {
       status   = "ENABLED"
-      location = "${aws_s3_bucket.s3_codebuild.id}/build-log"   ###
+      location = "${aws_s3_bucket.jh_s3_codebuild.id}/build-log"   ###
     }
   }
 
