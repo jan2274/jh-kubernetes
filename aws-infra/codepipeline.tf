@@ -42,18 +42,23 @@ resource "aws_iam_role_policy_attachment" "s3_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
-resource "aws_iam_policy" "codepipeline_s3_policy" {
-  name = "codepipeline-s3-access"
+resource "aws_iam_role_policy" "codepipeline_s3_policy" {
+  name = "CodePipelineS3Policy"
+  role = aws_iam_role.codepipeline_role.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = ["s3:PutObject", "s3:GetObject", "s3:ListBucket"]
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
         Resource = [
-          "arn:aws:s3:::jh-s3-codebuild",
-          "arn:aws:s3:::jh-s3-codebuild/*"
+          "arn:aws:s3:::jh-s3-codepipeline",
+          "arn:aws:s3:::jh-s3-codepipeline/*"
         ]
       }
     ]
