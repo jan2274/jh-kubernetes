@@ -38,6 +38,28 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   })
 }
 
+resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
+  name = "CodePipelineCodeBuildPolicy"
+  role = aws_iam_role.codepipeline_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "codebuild:StartBuild",
+          "codebuild:BatchGetBuilds",
+          "codebuild:BatchGetProjects"
+        ],
+        Resource = "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:project/codebuild-imagebuild"
+      }
+    ]
+  })
+}
+
+
+#################### 일단 제거해도 되는것으로 보임 ####################
 # resource "aws_iam_role_policy_attachment" "s3_policy" {
 #   role       = aws_iam_role.codepipeline_role.name
 #   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
@@ -61,6 +83,7 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
 #   })
 # }
 
+#################### 코드파이프라인한테 버킷한테의 접근 권한 부여 ####################
 resource "aws_iam_role_policy" "codepipeline_s3_policy" {
   name = "CodePipelineS3Policy"
   role = aws_iam_role.codepipeline_role.name
