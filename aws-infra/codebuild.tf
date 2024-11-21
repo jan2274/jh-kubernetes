@@ -1,6 +1,6 @@
 ###################### S3 for log ######################
 resource "aws_s3_bucket" "jh_s3_codebuild" {
-  bucket = "jh-s3-codebuild"
+  bucket = "jh-s3-codebuild2"
 }
 
 ###################### Role and Policy ######################
