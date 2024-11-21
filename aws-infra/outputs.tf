@@ -25,3 +25,7 @@ output "aws_eks_cluster" {
 output "eks_cluster_ca" {
   value = aws_eks_cluster.main.certificate_authority.0.data
 }
+
+output "codepipeline_name" {
+  value = aws_codepipeline.pipeline.name
+}

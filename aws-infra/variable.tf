@@ -35,3 +35,8 @@ variable "db_passwd" {
 #   default       = aws_ecr_repository.ecr_repo.repository_url
 #   description = "The URI of the ECR repository"
 # }
+
+variable "github_oauth_token" {
+  description = "OAuth token for GitHub integration"
+  type        = string
+}
