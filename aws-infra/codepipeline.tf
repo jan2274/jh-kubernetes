@@ -39,25 +39,25 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   })
 }
 
-# resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
-#   name = "CodePipelineCodeBuildPolicy"
-#   role = aws_iam_role.codepipeline_role.name
+resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
+  name = "CodePipelineCodeBuildPolicy"
+  role = aws_iam_role.codepipeline_role.name
 
-#   policy = jsonencode({
-#     Version = "2012-10-17",
-#     Statement = [
-#       {
-#         Effect = "Allow",
-#         Action = [
-#           "codebuild:StartBuild",
-#           "codebuild:BatchGetBuilds",
-#           "codebuild:BatchGetProjects"
-#         ],
-#         Resource = "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:project/codebuild-imagebuild"
-#       }
-#     ]
-#   })
-# }
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "codebuild:StartBuild",
+          "codebuild:BatchGetBuilds",
+          "codebuild:BatchGetProjects"
+        ],
+        Resource = "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:project/codebuild-imagebuild"
+      }
+    ]
+  })
+}
 
 
 #################### 일단 제거해도 되는것으로 보임 ####################
