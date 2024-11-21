@@ -60,10 +60,10 @@ resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
 
 
 #################### 일단 제거해도 되는것으로 보임 ####################
-# resource "aws_iam_role_policy_attachment" "s3_policy" {
-#   role       = aws_iam_role.codepipeline_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-# }
+resource "aws_iam_role_policy_attachment" "s3_policy" {
+  role       = aws_iam_role.codepipeline_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
 
 # resource "aws_iam_policy" "codepipeline_s3_policy" {
 #   name = "codepipeline-s3-access"
