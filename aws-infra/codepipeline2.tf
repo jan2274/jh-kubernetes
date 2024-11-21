@@ -1,14 +1,54 @@
+# resource "aws_s3_bucket" "jh_s3_codepipeline" {
+#   bucket = "jh-s3-codepipeline"
+# }
+
+# resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
+#   bucket = aws_s3_bucket.jh_s3_codepipeline.id
+
+#   block_public_acls       = true
+#   block_public_policy     = true
+#   ignore_public_acls      = true
+#   restrict_public_buckets = true
+# }
+
+#################### CodePipeline 아티팩트 저장 S3 ####################
 resource "aws_s3_bucket" "jh_s3_codepipeline" {
   bucket = "jh-s3-codepipeline"
+  acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+
+  tags = {
+    Name        = "CodePipelineArtifacts"
+  }
 }
 
-resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
+#################### 버킷에게 codepipeline에서 버킷에 권한을 부여하는 정책을 추가 ####################
+resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   bucket = aws_s3_bucket.jh_s3_codepipeline.id
 
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/codepipeline-role"
+        }
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "arn:aws:s3:::jh-s3-codepipeline",
+          "arn:aws:s3:::jh-s3-codepipeline/*"
+        ]
+      }
+    ]
+  })
 }
 
 resource "aws_codestarconnections_connection" "codepipeline_connections" {
