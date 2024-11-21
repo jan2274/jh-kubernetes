@@ -101,7 +101,7 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
         ],
         Resource = [
           "${aws_s3_bucket.jh_s3_codepipeline.arn}",
-          "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}/*",
           "${aws_s3_bucket.jh_s3_codebuild.arn}",
           "${aws_s3_bucket.jh_s3_codebuild.arn}/*"
         #   "arn:aws:s3:::jh-s3-codepipeline",
