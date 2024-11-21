@@ -84,9 +84,28 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
 }
 
 #################### 코드파라에게 코드빌드 실행 권한 부여 ####################
-resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
-  name = "CodePipeline_CodeBuildPolicy"
-  role = aws_iam_role.codepipeline_role.name
+# resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
+#   name = "CodePipeline_CodeBuildPolicy"
+#   role = aws_iam_role.codepipeline_role.name
+
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "codebuild:StartBuild",
+#           "codebuild:BatchGetBuilds",
+#           "codebuild:BatchGetProjects"
+#         ],
+#         Resource = "arn:aws:iam::381492128216:role/codebuild-role"
+#       }
+#     ]
+#   })
+# }
+
+resource "aws_iam_policy" "codepipelinecodebuild_policy" {
+  name = "CodePipelineCodeBuildPolicy"
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -103,6 +122,8 @@ resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
     ]
   })
 }
+
+
 
 #################### 일단 제거해도 되는것으로 보임 ####################
 # resource "aws_iam_role_policy_attachment" "s3_policy" {
@@ -137,6 +158,11 @@ resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
 resource "aws_iam_role_policy_attachment" "codepipeline_policy" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "codepipeline_policy2" {
+  role       = aws_iam_role.codepipeline_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CodePipelineCodeBuildPolicy"
 }
 
 #################### CodePipeline Resource ####################
