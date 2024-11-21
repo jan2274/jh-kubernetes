@@ -31,7 +31,8 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
         ]
         Resource = [
           "arn:aws:s3:::jh-s3-codepipeline",
-          "arn:aws:s3:::jh-s3-codepipeline/*"
+          "arn:aws:s3:::jh-s3-codepipeline/*",
+          "arn:aws:s3:::jh-s3-codebuild/*"
         ]
       }
     ]
