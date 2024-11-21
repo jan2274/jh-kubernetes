@@ -12,6 +12,7 @@ resource "aws_s3_bucket" "jh_s3_codepipeline" {
   }
 }
 
+#################### 버킷에게 codepipeline에서 버킷에 권한을 부여하는 정책을 추가 ####################
 resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   bucket = aws_s3_bucket.jh_s3_codepipeline.id
 
@@ -37,10 +38,10 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "s3_policy" {
-  role       = aws_iam_role.codepipeline_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-}
+# resource "aws_iam_role_policy_attachment" "s3_policy" {
+#   role       = aws_iam_role.codepipeline_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+# }
 
 # resource "aws_iam_policy" "codepipeline_s3_policy" {
 #   name = "codepipeline-s3-access"
