@@ -98,7 +98,7 @@ resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
           "codebuild:BatchGetBuilds",
           "codebuild:BatchGetProjects"
         ],
-        Resource = "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:project/codebuild-imagebuild"
+        Resource = "arn:aws:iam::381492128216:role/codebuild-role"
       }
     ]
   })
