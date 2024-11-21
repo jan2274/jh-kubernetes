@@ -16,3 +16,10 @@ next : Helm, AWS Codebuild
 목적: codebuild를 사용하여 일관성 있는 이미지 빌드 환경 구축
 
 next : AWS CodePipeline
+
+#########################################
+
+# Codepipeline
+github 안의 html 스크립트를 수정하면 이를 트리거로 CodePipeline이 동작하여 Codebuild를 실행시킵니다.
+
+next : AWS CodeDeploy
