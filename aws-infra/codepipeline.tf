@@ -38,54 +38,8 @@ resource "aws_s3_bucket_policy" "jh_s3_codepipeline_policy" {
   })
 }
 
-
-
-
-#################### CodePipeline Role 생성 ####################
-resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Service = "codepipeline.amazonaws.com"
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-#################### 코드파이프라인한테 버킷한테의 접근 권한 부여 ####################
-resource "aws_iam_role_policy" "codepipeline_s3_policy" {
-  name = "CodePipelineS3Policy"
-  role = aws_iam_role.codepipeline_role.name
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:ListBucket"
-        ],
-        Resource = [
-          "arn:aws:s3:::jh-s3-codepipeline",
-          "arn:aws:s3:::jh-s3-codepipeline/*"
-        ]
-      }
-    ]
-  })
-}
-
-# #################### 코드파라에게 코드빌드 실행 권한 부여 ####################
 # resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
-#   name = "CodePipeline_CodeBuildPolicy"
+#   name = "CodePipelineCodeBuildPolicy"
 #   role = aws_iam_role.codepipeline_role.name
 
 #   policy = jsonencode({
@@ -98,11 +52,12 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
 #           "codebuild:BatchGetBuilds",
 #           "codebuild:BatchGetProjects"
 #         ],
-#         Resource = "arn:aws:iam::381492128216:role/codebuild-role"
+#         Resource = "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:project/codebuild-imagebuild"
 #       }
 #     ]
 #   })
 # }
+
 
 #################### 일단 제거해도 되는것으로 보임 ####################
 # resource "aws_iam_role_policy_attachment" "s3_policy" {
@@ -128,12 +83,54 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
 #   })
 # }
 
+#################### 코드파이프라인한테 버킷한테의 접근 권한 부여 ####################
+resource "aws_iam_role_policy" "codepipeline_s3_policy" {
+  name = "CodePipelineS3Policy"
+  role = aws_iam_role.codepipeline_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "arn:aws:s3:::jh-s3-codepipeline",
+          "arn:aws:s3:::jh-s3-codepipeline/*"
+        ]
+      }
+    ]
+  })
+}
+
 # resource "aws_iam_role_policy_attachment" "codepipeline_s3_policy_attachment" {
 #   role       = aws_iam_role.codepipeline_role.name
 #   policy_arn = aws_iam_policy.codepipeline_s3_policy.arn
 # }
 
-#################### 생성한 CodePipeline Role에 CodePipeline Policy 부여 ####################
+#################### CodePipeline Role ####################
+resource "aws_iam_role" "codepipeline_role" {
+  name = "codepipeline-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "codepipeline.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+#################### CodePipeline Policy ####################
 resource "aws_iam_role_policy_attachment" "codepipeline_policy" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess"
