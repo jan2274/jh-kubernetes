@@ -1,5 +1,5 @@
 #################### CodePipeline 아티팩트 저장 S3 ####################
-resource "aws_s3_bucket" "s3_codebuild" {
+resource "aws_s3_bucket" "jh_s3_codepipeline" {
   bucket = "jh-s3-codepipeline"
   acl    = "private"
 
