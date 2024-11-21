@@ -71,7 +71,8 @@ data "aws_iam_policy_document" "codepipeline_assume_role_doc" {
 
 resource "aws_iam_role" "codepipeline_role" {
   name               = "codepipeline-role"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+#  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.codepipeline_assume_role_doc.json
 }
 
 data "aws_iam_policy_document" "codepipeline_policy" {
@@ -117,6 +118,20 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   policy = data.aws_iam_policy_document.codepipeline_policy.json
 }
 
+resource "aws_iam_role_policy" "codepipeline_assume_role_policy" {
+  name   = "codepipeline-assume-role-policy"
+  role   = aws_iam_role.codepipeline_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "sts:AssumeRole"
+        Resource = aws_iam_role.codepipeline_role.arn
+      }
+    ]
+  })
+}
 # data "aws_kms_alias" "s3kmskey" {
 #   name = "alias/myKmsKey"
 # }
