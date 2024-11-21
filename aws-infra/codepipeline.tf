@@ -104,41 +104,24 @@ resource "aws_iam_role_policy" "codepipeline_codebuild_policy" {
   })
 }
 
-data "aws_iam_policy_document" "codepipeline_policy_doc" {
-  statement {
-    effect    = "Allow"
-    actions   = ["codestar-connections:UseConnection"]
-    resources = [aws_codestarconnections_connection.codepipeline_connection.arn]
-  }
+# resource "aws_iam_policy" "codepipelinecodebuild_policy" {
+#   name = "CodePipelineCodeBuildPolicy"
 
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "codebuild:BatchGetBuilds",
-      "codebuild:StartBuild",
-    ]
-
-    resources = ["*"]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:GetBucketVersioning",
-      "s3:PutObjectAcl",
-      "s3:PutObject",
-    ]
-
-    resources = [
-      aws_s3_bucket.codepipeline_bucket.arn,
-      "${aws_s3_bucket.jh-s3-codepipeline.arn}/*"
-    ]
-  }
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "codebuild:StartBuild",
+#           "codebuild:BatchGetBuilds",
+#           "codebuild:BatchGetProjects"
+#         ],
+#         Resource = "arn:aws:iam::381492128216:role/codebuild-role"
+#       }
+#     ]
+#   })
+# }
 
 
 
