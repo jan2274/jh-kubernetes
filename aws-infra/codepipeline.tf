@@ -100,8 +100,8 @@ resource "aws_iam_role_policy" "codepipeline_s3_policy" {
           "s3:ListBucket"
         ],
         Resource = [
-          "${aws_s3_bucket.jh_s3_codebuild.arn}",
-          "${aws_s3_bucket.jh_s3_codebuild.arn}/*"
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}",
+          "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
         #   "arn:aws:s3:::jh-s3-codepipeline",
         #   "arn:aws:s3:::jh-s3-codepipeline/*"
         ]
@@ -146,7 +146,7 @@ resource "aws_codepipeline" "pipeline" {
 
   artifact_store {
     type     = "S3"
-    location = aws_s3_bucket.s3_codebuild.id
+    location = aws_s3_bucket.jh_s3_codepipeline.id
   }
 
   stage {
