@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "jh_s3_codepipeline" {
 }
 
 resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
-  bucket = aws_s3_bucket.codepipeline_bucket.id
+  bucket = aws_s3_bucket.jh_s3_codepipeline.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     ]
 
     resources = [
-      aws_s3_bucket.codepipeline_bucket.arn,
+      aws_s3_bucket.jh-s3-codepipeline.arn,
       "${aws_s3_bucket.jh_s3_codepipeline.arn}/*"
     ]
   }
