@@ -12,7 +12,7 @@ next : Helm, AWS Codebuild
 
 #########################################
 
-Codebuild
+# Codebuild
 목적: codebuild를 사용하여 일관성 있는 이미지 빌드 환경 구축
 
 next : AWS CodePipeline
